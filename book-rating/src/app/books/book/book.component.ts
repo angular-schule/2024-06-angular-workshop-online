@@ -14,4 +14,8 @@ export class BookComponent {
   // hier fließen Daten von der Elternkomponente hinein
   // von oben nach unten
   @Input({ required: true }) book?: Book;
+
+  doRateUp() {}
+
+  doRateDown() {}
 }
