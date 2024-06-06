@@ -28,25 +28,3 @@ export class BookRatingService {
     };
   }
 }
-
-
-
-const myObj = {
-  title: 'Angular',
-  author: {
-    firstname: 'F',
-    lastname: 'M'
-  }
-}
-
-
-const myCopy = {
-  ...myObj,
-  author: {
-    ...myObj.author,
-    firstname: 'L'
-  }
-};
-
-// echte Deep Copy
-const myCopy2 = structuredClone(myObj);
