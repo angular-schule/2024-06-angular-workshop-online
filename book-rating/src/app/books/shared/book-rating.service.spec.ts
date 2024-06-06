@@ -68,6 +68,5 @@ describe('BookRatingService', () => {
 
     const ratedBook3 = service.rateUp(ratedBook2);
     expect(ratedBook3.rating).toBe(5);
-
   });
 });
