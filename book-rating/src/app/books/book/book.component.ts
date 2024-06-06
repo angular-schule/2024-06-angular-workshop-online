@@ -1,12 +1,13 @@
 import { Component, Input, input } from '@angular/core';
 import { Book } from '../shared/book';
+import { RatingComponent } from '../rating/rating.component';
 
 // Aufgabe dieser Komponente:
 // ein einzelnes Buch anzeigen
 @Component({
   selector: 'app-book',
   standalone: true,
-  imports: [],
+  imports: [RatingComponent],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss'
 })
