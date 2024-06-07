@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { BookStoreService } from '../shared/book-store.service';
 
 @Component({
   selector: 'app-book-details',
@@ -10,4 +11,25 @@ import { RouterLink } from '@angular/router';
 })
 export class BookDetailsComponent {
 
+  private route = inject(ActivatedRoute);
+  private bs = inject(BookStoreService);
+
+  constructor() {
+    // PULL
+    // const isbn = this.route.snapshot.paramMap.get('isbn'); // path: 'books/:isbn'
+
+    // PUSH
+    this.route.paramMap.subscribe(params => {
+      const isbn = params.get('isbn')!; // Non-Null Assertion, bitte vorsichtig verwenden!
+
+      console.log(isbn);
+    });
+  }
 }
+
+/*
+  TODO
+  - ISBN aus der Route lesen
+  - Service, HTTP Buch laden
+  - Buch anzeigen
+*/
