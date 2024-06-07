@@ -37,7 +37,6 @@ describe('BookRatingService', () => {
     expect(ratedBook.rating).toBe(4); // NICHT: book.rating + 1
   });
 
-  // AUFGABE: diese drei Tests implementieren
   it('should decrease rating by one', () => {
     book.rating = 3;
     const ratedBook = service.rateDown(book);
