@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookComponent } from '../book/book.component';
 import { BookRatingService } from '../shared/book-rating.service';
+import { BookStoreService } from '../shared/book-store.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,27 +14,24 @@ import { BookRatingService } from '../shared/book-rating.service';
 })
 export class DashboardComponent {
   private rs = inject(BookRatingService);
+  private bs = inject(BookStoreService);
 
   books: Book[] = [];
 
   // constructor(private rs: BookRatingService) {
   constructor() {
-    this.books = [
-      {
-        isbn: '123',
-        title: 'Angular',
-        description: 'Grundlagen und mehr',
-        rating: 5,
-        price: 42.9
+    this.bs.getAll().subscribe(books => {
+      this.books = books;
+    });
+
+    /*this.bs.getAll().subscribe({
+      next: books => {
+        this.books = books;
       },
-      {
-        isbn: '456',
-        title: 'Vue.js',
-        description: 'Das grüne Framework',
-        rating: 3,
-        price: 36.9
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
       }
-    ];
+    });*/
   }
 
   doRateUp(book: Book) {
