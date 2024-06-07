@@ -2,13 +2,14 @@ import { Component, EventEmitter, Input, Output, input, output } from '@angular/
 import { Book } from '../shared/book';
 import { RatingComponent } from '../rating/rating.component';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 // Aufgabe dieser Komponente:
 // ein einzelnes Buch anzeigen
 @Component({
   selector: 'app-book',
   standalone: true,
-  imports: [RatingComponent, CurrencyPipe],
+  imports: [RatingComponent, CurrencyPipe, RouterLink],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss'
 })
