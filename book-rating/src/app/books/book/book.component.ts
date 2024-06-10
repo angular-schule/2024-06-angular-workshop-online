@@ -29,6 +29,7 @@ export class BookComponent {
   // output() geht erst ab Angular 17.3
   rateUp = output<Book>();
   rateDown = output<Book>();
+  deleteBook = output<Book>();
 
   doRateUp() {
     // bitte immer prüfen, ob es wirklich ein Buch ist, denn:
@@ -41,6 +42,12 @@ export class BookComponent {
   doRateDown() {
     if (this.book) {
       this.rateDown.emit(this.book);
+    }
+  }
+
+  doDeleteBook() {
+    if (this.book && confirm('Buch löschen?')) {
+      this.deleteBook.emit(this.book);
     }
   }
 }

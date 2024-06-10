@@ -29,4 +29,8 @@ export class BookStoreService {
     return this.http.get<Book[]>(this.apiUrl + '/books/search/' + searchTerm);
   }
 
+  delete(isbn: string): Observable<unknown> {
+    return this.http.delete(this.apiUrl + '/books/' + isbn);
+  }
+
 }
