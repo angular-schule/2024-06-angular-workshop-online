@@ -30,7 +30,11 @@ export class HigherorderComponent {
 
     /**************!!**************/
 
+    // mergeMap = map + mergeAll
+    // concatMap = map + concatAll
+
     this.result$ = this.source$.pipe(
+      concatMap(tier => this.es.echo(tier))
     );
 
     /**************!!**************/

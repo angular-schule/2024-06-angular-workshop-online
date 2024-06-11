@@ -1,6 +1,6 @@
 import { Component, OnDestroy, inject } from '@angular/core';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { Subject, BehaviorSubject, ReplaySubject, Observable, share, takeUntil } from 'rxjs';
+import { Subject, BehaviorSubject, ReplaySubject, Observable, share, takeUntil, shareReplay } from 'rxjs';
 
 import { MeasureValuesService } from './measure-values.service';
 import { HistoryComponent } from '../../shared/history/history.component';
@@ -19,11 +19,21 @@ export class MulticastComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
   private listenerIndex = 1;
 
-  measureValues$: Observable<number>; // später: Subject<number>;
+  measureValues$: Observable<number>;
 
   constructor() {
     /**************!!**************/
-    this.measureValues$ = this.mvs.getValues();
+
+    /*this.measureValues$ = this.mvs.getValues().pipe(share({
+      connector: () => new ReplaySubject(1)
+    }));*/
+    this.measureValues$ = this.mvs.getValues().pipe(shareReplay(1));
+
+    // this.measureValues$ = new Subject();
+    // this.measureValues$ = new BehaviorSubject(0);
+    // this.measureValues$ = new ReplaySubject(5);
+    // this.mvs.getValues().subscribe(this.measureValues$);
+
     /**************!!**************/
 
   }

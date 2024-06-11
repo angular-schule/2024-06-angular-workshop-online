@@ -21,12 +21,20 @@ export class ErrorhandlingComponent {
 
   start() {
     this.ds.getData().pipe(
+      catchError(err => {
+        // mit dem Fehler arbeiten … TODO
 
-      /******************************/
+        // Fehler weiterwerfen
+        // return throwError(() => 'MEIN BÖSER FEHLER!');
+        throw 'OH NO, THIS WAS AN ERROR!';
 
-      
-      /******************************/
+        // Fehler ersetzen
+        // return of('Nichts', 'passiert');
 
+        // Fehler ignorieren / verschlucken
+        // return of();
+        // return EMPTY;
+      })
     ).subscribe({
       next: e => this.logStream$.next(e),
       error: err => this.logStream$.next('❌ ERROR: ' + err),

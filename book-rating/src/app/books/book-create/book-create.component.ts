@@ -88,23 +88,4 @@ export class BookCreateComponent {
       this.router.navigate(['/books', receivedBook.isbn]);
     });
   }
-
-
 }
-
-
-/*
-constructor(private router: Router) {}
-
-this.router.navigate(['/books', '123']); // [routerLink]="['/books', '123']"
-this.router.navigateByUrl('/books/123'); // routerLink="/books/123"
-*/
-
-// abschicken
-// wenn valid, dann …
-// Buch erstellen
-// HTTP
-// bei Erfolg:
-// - Weiterleitung zur Detailseite oder Dashboard
-// - Meldung anzeigen
-// - Formular zurücksetzen
