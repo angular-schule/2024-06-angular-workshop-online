@@ -1,4 +1,4 @@
-@if (book$ | async; as book) {
+@if (bookSignal(); as book) {
   <h2>{{ book.title }}</h2>
   <p>{{ book.description }}</p>
 }
