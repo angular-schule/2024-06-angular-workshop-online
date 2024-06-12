@@ -1,3 +1,21 @@
 <div class="form-group">
   <input type="text" class="form-control" placeholder="Suche" [formControl]="searchControl">
 </div>
+
+<ul>
+@for(book of books$ | async; track book.isbn) {
+  <li>{{ book.title }} ({{ book.isbn }})</li>
+}
+</ul>
+
+<!--
+@if (searchControl.value.length >= 3) {
+<ul>
+@for(book of books(); track book.isbn) {
+  <li>{{ book.title }} ({{ book.isbn }})</li>
+}
+</ul>
+} @else {
+  <p>Keine Ergebnisse!</p>
+}
+-->
