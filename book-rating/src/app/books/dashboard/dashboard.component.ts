@@ -4,6 +4,10 @@ import { BookComponent } from '../book/book.component';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { BookActions } from '../store/book.actions';
+import { map } from 'rxjs';
+import { selectBooks } from '../store/book.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +19,25 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class DashboardComponent {
   private rs = inject(BookRatingService);
   private bs = inject(BookStoreService);
+  private store = inject(Store);
 
   books: Book[] = [];
 
+  books$ = this.store.select(selectBooks);
+  books$$ = this.store.selectSignal(selectBooks);
+
   // constructor(private rs: BookRatingService) {
   constructor() {
-    this.bs.getAll().subscribe(books => {
+    this.store.dispatch(BookActions.loadBooks());
+    // this.store.dispatch({ type: 'TEST' });
+
+    this.books$.subscribe(books => {
       this.books = books;
     });
+
+    /*this.bs.getAll().subscribe(books => {
+      this.books = books;
+    });*/
 
     /*this.bs.getAll().subscribe({
       next: books => {
