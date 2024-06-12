@@ -43,7 +43,8 @@ export class CreatingComponent {
 
     /******************************/
 
-    // Subscriber: ähnlich Observer, aber "Innensicht"
+    // Subscriber: empfängt die Daten vom Producer
+    // ähnlich Observer, aber "Innensicht"
     function producer(sub: Subscriber<number>) {
       const result = Math.random();
       sub.next(result);
@@ -52,13 +53,24 @@ export class CreatingComponent {
       sub.next(20);
       sub.next(30);
 
-      setTimeout(() => sub.next(100), 2000)
-      setTimeout(() => sub.next(200), 4000)
+      // setTimeout(() => sub.next(100), 2000)
+      const timer1 = setTimeout(() => {
+        console.log('TIMER');
+        sub.next(200);
+        sub.complete();
+      }, 4000)
       // setTimeout(() => sub.error('FEHLER'), 4100)
-      setTimeout(() => sub.complete(), 6000)
-      setTimeout(() => sub.next(666), 8000) // wird nicht durchgestellt, weil nach complete!
+      // setTimeout(() => sub.complete(), 6000)
+      // setTimeout(() => sub.next(666), 8000) // wird nicht durchgestellt, weil nach complete!
+
+      // Teardown Logic
+      return () => {
+        console.log('TEARDOWN');
+        clearTimeout(timer1);
+      };
     }
 
+    // Observer: hört von außen zu
     const obs: Observer<number> = {
       next: (e: number) => console.log(e),
       error: (err: any) => console.error(err),
@@ -67,8 +79,14 @@ export class CreatingComponent {
 
     // producer(obs);
 
+    // Observable: Schnittstelle zwischen Producer und Observer
     const myObs$ = new Observable(producer);
-    // myObs$.subscribe(obs);
+    const sub = myObs$.subscribe(obs);
+
+    setTimeout(() => {
+      sub.unsubscribe();
+      console.log('UNSUB')
+    }, 3000)
 
 
     const interval$ = new Observable<number>(sub => {

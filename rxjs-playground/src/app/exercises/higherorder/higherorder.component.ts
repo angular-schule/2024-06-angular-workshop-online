@@ -34,7 +34,7 @@ export class HigherorderComponent {
     // concatMap = map + concatAll
 
     this.result$ = this.source$.pipe(
-      concatMap(tier => this.es.echo(tier))
+      exhaustMap(tier => this.es.echo(tier))
     );
 
     /**************!!**************/
